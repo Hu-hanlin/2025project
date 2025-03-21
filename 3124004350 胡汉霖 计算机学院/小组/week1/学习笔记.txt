@@ -1,0 +1,103 @@
+2023-03-18
+
+#mysql安装和卸载重要语句
+
+##卸载
+
+net stop mysql
+net -remove mysql
+
+##安装以及登录
+
+net start mysql
+mysqladmin -u root password 12378956(设置密码程序，感觉密码会忘)
+mysql -uroot -p(登录代码)
+
+#mysql的数据模型为关系型数据库
+
+##.frm结尾为表文件，.MYD结尾为数据文件
+
+#show database;  ——查询当前目录的数据库
+
+#SQL分类
+
+DDL数据定义语言
+DML数据操作语言
+DQL数据查询语言
+DCL数据控制语言（用来设置数据的安全权限）
+
+#DDL语言
+
+## show databases; //显示数据库
+
+## creat database xxx; //创建数据库
+
+## drop database xxx; //删除数据库
+
+#DML语言
+
+## insert into  表名（列名1，列名2） values（值1，值2，...）给指定列添加数据
+
+##select * from stu; 查询所有数据
+
+##select 表名 from stu; 查询指定数据
+
+##update 表名 列名1=值1,......[where 条件]; 修改数据
+
+##delete from 表名 [where 条件] 删除数据
+
+#DQL语言
+
+分为 基础、条件where、分组group by、排序order by、分页limit查询
+
+基础查询：
+
+##select distinct xxx from xxx; 去除重复数据
+
+##select math,name,english from stu; 查询姓名，数学成绩，英语成绩
+
+条件查询：
+
+##select 字段列表 from 表名 where 条件列表；
+
+##select * from stu where age >20; 查询年龄大于20岁的学员信息
+
+##select * from stu where age =20; 查询年龄等于20岁的学员信息（一个等号！）
+
+排序查询：
+
+##select 字段列表 from 表名 order by 排序字段名1 [排序方式1]，排序字段名2 [排序方式2]；
+
+##asc升序排列 desc降序排列
+
+##如果有多个排序的时候，当前面的条件值一样时，才会根据第二条件排序
+
+分组查询：
+
+##聚合函数（将一列作为一个整体进行纵向计算）： count(xxx) 统计数量 max/min(xxx) 求最大/小值 sum(xxx) 求和 avg(xxx) 求平均数
+
+##分组函数： select 字段列表 from 表名 [where 分组前条件限定] group by 分组字段名[having分组后条件过滤]...;
+
+##执行顺序：where>聚合函数>having
+
+分页查询：
+
+##语法： select 字段列表 from 表名 limit 起始索引，查询条目数；
+
+
+2025-3-19
+
+拔牙，无法学习
+
+2025-3-20
+
+#JDBC
+
+##概念：(Java DataBase Connecticity)使用java语言操作数据库的api
+
+##主要目的：操作接口
+
+##步骤：注册驱动->获取连接->定义SQL语句->获取执行SQL对象->执行SQL->处理返回结果->释放资源
+
+
+
