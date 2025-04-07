@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@vue/runtime-dom@3.3.11"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>登录/注册页面</title>
+</head>
+
+<body>
+    <div id="app" class="flex justify-center items-center min-h-screen bg-gray-100">
+        <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+            <div class="flex justify-center mb-4">
+                <button :class="{ 'text-blue-500 border-b-2 border-blue-500': isLogin }" @click="isLogin = true"
+                    class="px-4 py-2 focus:outline-none">登录</button>
+                <button :class="{ 'text-blue-500 border-b-2 border-blue-500':!isLogin }" @click="isLogin = false"
+                    class="px-4 py-2 focus:outline-none">注册</button>
+            </div>
+            <form @submit.prevent="submitForm">
+                <div v-if="isLogin">
+                    <div class="mb-4">
+                        <label for="loginEmail" class="block text-gray-700 text-sm font-bold mb-2">邮箱</label>
+                        <input type="email" id="loginEmail" v-model="loginForm.email"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="请输入邮箱">
+                        <p v-if="!loginForm.email && submitted" class="text-red-500 text-xs italic">邮箱为必填项</p>
+                    </div>
+                    <div class="mb-6">
+                        <label for="loginPassword" class="block text-gray-700 text-sm font-bold mb-2">密码</label>
+                        <input type="password" id="loginPassword" v-model="loginForm.password"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="请输入密码">
+                        <p v-if="!loginForm.password && submitted" class="text-red-500 text-xs italic">密码为必填项</p>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="mb-4">
+                        <label for="registerEmail" class="block text-gray-700 text-sm font-bold mb-2">邮箱</label>
+                        <input type="email" id="registerEmail" v-model="registerForm.email"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="请输入邮箱">
+                        <p v-if="!registerForm.email && submitted" class="text-red-500 text-xs italic">邮箱为必填项</p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="registerPhone" class="block text-gray-700 text-sm font-bold mb-2">手机号</label>
+                        <input type="tel" id="registerPhone" v-model="registerForm.phone"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="请输入手机号">
+                        <p v-if="!registerForm.phone && submitted" class="text-red-500 text-xs italic">手机号为必填项</p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="registerPassword" class="block text-gray-700 text-sm font-bold mb-2">密码</label>
+                        <input type="password" id="registerPassword" v-model="registerForm.password"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="请输入密码">
+                        <p v-if="!registerForm.password && submitted" class="text-red-500 text-xs italic">密码为必填项</p>
+                    </div>
+                    <div class="mb-6">
+                        <label for="confirmPassword" class="block text-gray-700 text-sm font-bold mb-2">确认密码</label>
+                        <input type="password" id="confirmPassword" v-model="registerForm.confirmPassword"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="请再次输入密码">
+                        <p v-if="!registerForm.confirmPassword && submitted"
+                            class="text-red-500 text-xs italic">确认密码为必填项</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        {{ isLogin ? '登录' : '注册' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const { createApp, ref } = Vue;
+        const app = createApp({
+            setup() {
+                const isLogin = ref(true);
+                const submitted = ref(false);
+                const loginForm = ref({
+                    email: '',
+                    password: ''
+                });
+                const registerForm = ref({
+                    email: '',
+                    phone: '',
+                    password: '',
+                    confirmPassword: ''
+                });
+
+                const submitForm = () => {
+                    submitted.value = true;
+                    if (isLogin.value) {
+                        if (loginForm.value.email && loginForm.value.password) {
+                            console.log('登录表单提交成功', loginForm.value);
+                        }
+                    } else {
+                        if (registerForm.value.email && registerForm.value.phone && registerForm.value.password && registerForm.value.confirmPassword) {
+                            console.log('注册表单提交成功', registerForm.value);
+                        }
+                    }
+                };
+
+                return {
+                    isLogin,
+                    submitted,
+                    loginForm,
+                    registerForm,
+                    submitForm
+                };
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
+    
